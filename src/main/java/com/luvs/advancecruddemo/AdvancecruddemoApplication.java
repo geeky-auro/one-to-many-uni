@@ -4,6 +4,7 @@ import com.luvs.advancecruddemo.dao.AppDAO;
 import com.luvs.advancecruddemo.entity.Course;
 import com.luvs.advancecruddemo.entity.Instructor;
 import com.luvs.advancecruddemo.entity.InstructorDetail;
+import com.luvs.advancecruddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,26 +22,29 @@ public class AdvancecruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		return runner -> {
-//			createinstructor(appDAO);
-//			findInstructor(appDAO);
-//			deleteinstructorById(appDAO);
-//			System.out.println("It is working !");
-//			findInstructorDetail(appDAO);
-//			deleteInstructorDetail(appDAO);
-//			createInstructorWithCourses(appDAO);
-//			findInstructorWithCourses(appDAO);
-
-//			findCoursesforInstructor(appDAO);
-
-//			findInstructorWithJoinFetch(appDAO);
-//			updateInstructor(appDAO);
-
-//			updateCourse(appDAO);
-
-//			deleteInstructorDetail(appDAO);
-			deleteCourse(appDAO);
+			createCourseAndReviews(appDAO);
 		};
 
+
+
+	}
+
+	private void createCourseAndReviews(AppDAO appDAO) {
+		// create a course
+			Course tempCourse=new Course("PacMan-How to Score One Million Points");
+		// add some reviews
+		tempCourse.addReview(new Review("Great Course"));
+		tempCourse.addReview(new Review("Cool Course, job well done"));
+		tempCourse.addReview(new Review("What a dumb course you are a idiiot"));
+
+		// save the course and leverage the cascade all
+		System.out.println("Saving the Course");
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+
+		appDAO.save(tempCourse);
+
+		System.out.println("Done!");
 
 
 	}
