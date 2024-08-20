@@ -22,10 +22,34 @@ public class AdvancecruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 		return runner -> {
-			createCourseAndReviews(appDAO);
+//			createCourseAndReviews(appDAO);
+//			retrieveCourseAndReviews(appDAO);
+			deleteCourseAndReview(appDAO);
+
 		};
 
 
+
+
+	}
+
+	private void deleteCourseAndReview(AppDAO appDAO) {
+		int theId=10;
+		System.out.println("Deleting course id: "+theId);
+		appDAO.deleteCourseById(theId);
+		System.out.println("Done!");
+	}
+
+	private void retrieveCourseAndReviews(AppDAO appDAO) {
+		// get the course and reviews
+		int theId=10;
+		Course tempCourse=appDAO.findCourseAndReviewsByCourseId(theId);
+		// print the course
+		System.out.println(tempCourse);
+		// print the reviews
+		System.out.println(tempCourse.getReviews());
+
+		System.out.println("Done!");
 
 	}
 
